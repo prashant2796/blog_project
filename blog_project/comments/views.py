@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render,get_object_or_404
 from .forms import CommentForm
-from .models import comment_thread
+#from .models import comment_thread
 
 
 # Create your views here.
@@ -20,7 +20,7 @@ def comment_delete(request,id):
         response = HttpResponse("You do not have permission to do this.")
         response.status_code=403
         return response
-        
+
     if request.method == 'POST':
         parent_obj_url=obj.content_object.get_absolute_url()
         obj.delete()
@@ -45,7 +45,7 @@ def comment_thread(request,id):
     content_id = obj.content_object.id
     initial_data = {
         "content_type":obj.content_type,
-        "object_id":.obj.object_id
+        "object_id":obj.object_id
     }
     form = CommentForm(request.POST or None, initial=initial_data)
     if form.is_valid():
